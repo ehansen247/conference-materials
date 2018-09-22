@@ -1,4 +1,4 @@
-# conference-materials
+# Conference Materials
 demos and slides for conference talks
 
 ## INFRASTRUCTURE IN A THE NEW WORLD OF CONTAINERS: WHAT ARE YOUR OPTIONS?
