@@ -1,0 +1,18 @@
+version: '3.2'  # version of compose format
+
+services:
+  pyapp:
+    build: .
+    ports:
+        - 5000:5000
+
+  pyapp2:
+    build: .
+    ports:
+        - 5001:5000
+
+  loadbalancer:
+    image: haproxy:local
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    network_mode: host
