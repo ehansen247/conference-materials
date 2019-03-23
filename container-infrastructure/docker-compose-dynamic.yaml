@@ -1,0 +1,31 @@
+version: '3.2'  # version of compose format
+
+services:
+  pyapp:
+    build: .
+
+  pyapp2:
+    build: .
+
+  consul:
+    image:  consul:latest
+    command: "-advertise=localhost"
+    hostname: localhost
+    ports:
+      - 8500:8500
+
+  registrator:
+    image: gliderlabs/registrator:latest
+    command: "-ip localhost consul://localhost:8500"
+    container_name: registrator
+    hostname: localhost
+    depends_on:
+      - consul
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock
+
+  loadbalancer:
+    image: haproxy:local
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    network_mode: host
