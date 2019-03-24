@@ -44,10 +44,19 @@ security_group_definition = {
         "custom_config":{
             "IpPermissions":[
                 {
-                    "FromPort": 80,
+                    "FromPort": 5000,
                     "IpProtocol": "tcp",
                     "IpRanges": [{"CidrIp": "0.0.0.0/0"}],
-                    "ToPort": 80,
+                    "ToPort": 5000,
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": [],
+                    "UserIdGroupPairs": []
+                },
+                {
+                    "FromPort": 22,
+                    "IpProtocol": "tcp",
+                    "IpRanges": [{"CidrIp": "0.0.0.0/0"}],
+                    "ToPort": 22,
                     "Ipv6Ranges": [],
                     "PrefixListIds": [],
                     "UserIdGroupPairs": []
@@ -73,11 +82,14 @@ ec2_definition = {
         "InstanceType": "t2.nano",
         "MaxCount": 1,
         "MinCount": 1,
+        "KeyName":"yahoo",
+        # "SubnetId":"$inherit$subnet:ec2-example$SubnetId",
+        # "SecurityGroupIds": ["$inherit$security_group:ec2-example$GroupId"],
         "NetworkInterfaces": [
         {
             'DeviceIndex': 0,
             "SubnetId":"$inherit$subnet:ec2-example$SubnetId",
-            "SecurityGroupIds": ["$inherit$security_group:ec2-example$GroupId"],
+            "Groups": ["$inherit$security_group:ec2-example$GroupId"],
             'AssociatePublicIpAddress': True
         }],
     }
